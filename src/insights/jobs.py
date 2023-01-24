@@ -5,21 +5,9 @@ import csv
 
 @lru_cache
 def read(path: str) -> List[Dict]:
-    with open(path) as file:
-        all_jobs = csv.reader(file, delimiter=",", quotechar='"')
-
-        header, *data = all_jobs
-
-        jobs = []
-
-        for job in data:
-            job_dict = {
-                header[0]: job[0],
-                header[1]: job[1],
-                header[2]: job[2],
-            }
-            jobs.append(job_dict)
-        return jobs
+     with open(path, encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        return list(reader)
 
 
 def get_unique_job_types(path: str) -> List[str]:
